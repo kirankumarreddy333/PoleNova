@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { FiCpu, FiCheck, FiTrash2, FiLoader } from 'react-icons/fi';
 import Sidebar from '../components/Sidebar.jsx';
 import Navbar from '../components/Navbar.jsx';
+import DemoController from '../components/DemoController.jsx';
+import AiExplanationPanel from '../components/AiExplanationPanel.jsx';
 import api from '../services/api.js';
 import { getSocket } from '../services/socket.js';
 
@@ -83,6 +85,7 @@ const Faults = () => {
     <div className="min-h-screen bg-grid-dark">
       <Sidebar />
       <main className="ml-64 p-8">
+        <DemoController />
         <div className="mb-6 flex items-center justify-between">
           <Navbar title="AI Fault Detection" subtitle="Faults detected by comparing adjacent pole readings" />
           <button
@@ -140,9 +143,6 @@ const Faults = () => {
                       <span className={`rounded-full px-3 py-1 text-xs font-semibold capitalize ${statusStyles[fault.status]}`}>
                         {fault.status.replace('_', ' ')}
                       </span>
-                      <span className="rounded-full bg-white/5 px-3 py-1 text-xs font-semibold capitalize text-slate-400">
-                        {fault.rootCause.replace('_', ' ')}
-                      </span>
                     </div>
                   </div>
 
@@ -173,6 +173,8 @@ const Faults = () => {
                     </button>
                   </div>
                 </div>
+                
+                <AiExplanationPanel fault={fault} />
               </div>
             ))
           )}

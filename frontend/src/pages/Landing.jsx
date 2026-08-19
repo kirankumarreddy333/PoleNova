@@ -1,194 +1,110 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { FiZap, FiCpu, FiMap, FiBarChart2, FiShield, FiArrowRight } from 'react-icons/fi';
-
-const features = [
-  { icon: FiCpu, title: 'AI Fault Detection', desc: 'Compares readings between adjacent poles to instantly localize faults on the line.' },
-  { icon: FiZap, title: 'Real-Time Monitoring', desc: 'Live voltage, current, and temperature streamed from every pole via Socket.io.' },
-  { icon: FiMap, title: 'Network Visualization', desc: 'See your entire distribution network health at a glance from one dashboard.' },
-  { icon: FiBarChart2, title: 'Analytics & Reports', desc: 'Historical trends, fault analytics, and exportable reports for DISCOM teams.' },
-  { icon: FiShield, title: 'Role-Based Access', desc: 'Super Admin, Admin, Engineer, and Technician roles with scoped permissions.' }
-];
-
-const steps = [
-  { step: '01', title: 'IoT Sensors', desc: 'Low-cost sensors on each pole capture voltage, current, and temperature.' },
-  { step: '02', title: 'Data Ingestion', desc: 'Readings stream into the platform via REST/Socket.io in real time.' },
-  { step: '03', title: 'AI Analysis', desc: 'The AI engine compares adjacent poles to detect and localize faults.' },
-  { step: '04', title: 'Instant Alerts', desc: 'Engineers get severity-ranked alerts with root cause & recommendations.' }
-];
+import { FiActivity, FiZap, FiCpu, FiAlertTriangle, FiEye } from 'react-icons/fi';
 
 const Landing = () => {
   return (
-    <div className="min-h-screen overflow-hidden bg-grid-dark">
-      {/* Nav */}
-      <nav className="relative z-10 flex items-center justify-between px-6 py-5 md:px-16">
-        <div className="flex items-center gap-2">
-          <FiZap className="text-2xl text-grid-blue" />
-          <span className="text-lg font-bold text-slate-100">
-            Pole<span className="text-gradient">Nova</span> AI
-          </span>
-        </div>
-        <div className="flex items-center gap-4">
-          <Link to="/login" className="text-sm font-medium text-slate-300 hover:text-white">
-            Login
-          </Link>
-          <Link
-            to="/register"
-            className="rounded-lg bg-grid-blue px-4 py-2 text-sm font-semibold text-grid-dark hover:brightness-110"
-          >
-            Get Started
-          </Link>
+    <div className="min-h-screen bg-grid-dark text-slate-300">
+      <nav className="border-b border-white/5 bg-grid-dark/80 px-8 py-4 backdrop-blur-md">
+        <div className="mx-auto flex max-w-7xl items-center justify-between">
+          <div className="flex items-center gap-2">
+            <FiZap className="text-2xl text-grid-blue" />
+            <span className="text-xl font-bold text-slate-100">
+              Pole<span className="text-gradient">Nova</span> AI
+            </span>
+          </div>
+          <div className="flex gap-4">
+            <Link to="/login" className="font-semibold text-slate-400 hover:text-white">
+              Login
+            </Link>
+            <Link
+              to="/dashboard"
+              className="rounded-lg bg-grid-blue px-4 py-2 text-sm font-bold text-grid-dark hover:brightness-110"
+            >
+              Watch Live Demo
+            </Link>
+          </div>
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="relative px-6 pb-24 pt-16 text-center md:px-16 md:pt-24">
-        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,rgba(56,189,248,0.15),transparent_60%)]" />
-        <motion.p
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mx-auto mb-5 w-fit rounded-full border border-grid-blue/30 bg-grid-blue/10 px-4 py-1.5 text-xs font-medium text-grid-blue"
-        >
-          AI + IoT for Rural DISCOMs
-        </motion.p>
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="mx-auto max-w-4xl text-4xl font-extrabold leading-tight text-slate-100 md:text-6xl"
-        >
-          Intelligent Distribution Network <span className="text-gradient">Monitoring System</span>
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mx-auto mt-6 max-w-2xl text-base text-slate-400 md:text-lg"
-        >
-          PoleNova AI detects faults between electric poles in real time using low-cost IoT
-          sensors and an AI-driven analysis engine — built for rural electricity distribution companies.
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-4"
-        >
-          <Link
-            to="/register"
-            className="flex items-center gap-2 rounded-xl bg-grid-blue px-6 py-3 font-semibold text-grid-dark shadow-glow hover:brightness-110"
-          >
-            Explore Dashboard <FiArrowRight />
-          </Link>
-          <Link
-            to="/login"
-            className="rounded-xl border border-white/10 px-6 py-3 font-semibold text-slate-200 hover:bg-white/5"
-          >
-            Live Demo
-          </Link>
-        </motion.div>
-
-        {/* animated electric line */}
-        <div className="relative mx-auto mt-16 h-24 max-w-3xl">
-          <svg viewBox="0 0 800 100" className="h-full w-full">
-            <motion.path
-              d="M0,50 L120,50 L160,20 L200,80 L240,50 L800,50"
-              fill="none"
-              stroke="url(#lineGrad)"
-              strokeWidth="2"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse' }}
-            />
-            <defs>
-              <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#38bdf8" />
-                <stop offset="100%" stopColor="#22c55e" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section id="features" className="px-6 py-20 md:px-16">
-        <h2 className="text-center text-3xl font-bold text-slate-100">Platform Features</h2>
-        <p className="mx-auto mt-3 max-w-xl text-center text-slate-500">
-          Everything a modern smart-grid monitoring platform needs, purpose-built for DISCOM operations.
-        </p>
-        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-          {features.map(({ icon: Icon, title, desc }, i) => (
-            <motion.div
-              key={title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              className="glass rounded-2xl p-6 hover:shadow-glow transition-shadow"
-            >
-              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-grid-blue/10 text-xl text-grid-blue">
-                <Icon />
-              </div>
-              <h3 className="text-lg font-semibold text-slate-100">{title}</h3>
-              <p className="mt-2 text-sm text-slate-500">{desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* How it works */}
-      <section id="how-it-works" className="px-6 py-20 md:px-16">
-        <h2 className="text-center text-3xl font-bold text-slate-100">How It Works</h2>
-        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-4">
-          {steps.map(({ step, title, desc }, i) => (
-            <motion.div
-              key={step}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="relative rounded-2xl border border-white/5 p-6"
-            >
-              <span className="text-4xl font-extrabold text-white/5">{step}</span>
-              <h3 className="mt-2 text-lg font-semibold text-slate-100">{title}</h3>
-              <p className="mt-2 text-sm text-slate-500">{desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Problem statement */}
-      <section className="px-6 py-20 md:px-16">
-        <div className="glass mx-auto max-w-4xl rounded-2xl p-8 md:p-10">
-          <h2 className="text-2xl font-bold text-slate-100">The Problem</h2>
-          <p className="mt-4 text-slate-400">
-            Rural distribution networks often lack real-time visibility. Faults between poles can go
-            undetected for hours, causing prolonged outages, revenue loss, and safety risks. Manual
-            inspection is slow and reactive — PoleNova AI turns this into proactive, data-driven maintenance.
+      <main className="mx-auto max-w-7xl px-8 py-20">
+        <div className="mb-20 text-center">
+          <h1 className="mb-6 text-5xl font-extrabold tracking-tight text-white md:text-7xl">
+            AI-powered <span className="text-gradient">fault intelligence</span>
+            <br /> for rural electricity networks.
+          </h1>
+          <p className="mx-auto mb-10 max-w-2xl text-lg text-slate-400">
+            Detect distribution faults between poles in real time, understand exactly why they happened, 
+            and help field teams respond faster with explainable AI and IoT.
           </p>
+          <div className="flex justify-center gap-4">
+            <Link
+              to="/dashboard"
+              className="flex items-center gap-2 rounded-xl bg-grid-blue px-8 py-4 text-base font-bold text-grid-dark shadow-[0_0_30px_rgba(56,189,248,0.3)] hover:shadow-[0_0_40px_rgba(56,189,248,0.5)] transition-all"
+            >
+              <FiEye /> Watch Live Demo
+            </Link>
+          </div>
         </div>
-      </section>
 
-      {/* CTA */}
-      <section className="px-6 pb-24 md:px-16">
-        <div className="glass mx-auto flex max-w-4xl flex-col items-center rounded-2xl p-10 text-center shadow-glow">
-          <h2 className="text-2xl font-bold text-slate-100 md:text-3xl">Ready to see your grid, live?</h2>
-          <p className="mt-3 max-w-md text-slate-500">
-            Create an account and explore the full monitoring dashboard in minutes.
+        <div className="grid gap-8 md:grid-cols-3">
+          <div className="glass rounded-2xl p-8 border border-white/5 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+              <FiAlertTriangle size={80} />
+            </div>
+            <div className="mb-4 inline-flex rounded-lg bg-orange-500/10 p-3 text-orange-400">
+              <FiAlertTriangle className="text-2xl" />
+            </div>
+            <h3 className="mb-3 text-xl font-bold text-white">The Problem</h3>
+            <p className="text-slate-400 leading-relaxed">
+              Rural distribution networks are difficult to monitor. Operators often discover faults only after customers report outages or field technicians manually inspect infrastructure.
+            </p>
+          </div>
+
+          <div className="glass rounded-2xl p-8 border border-white/5 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+              <FiActivity size={80} />
+            </div>
+            <div className="mb-4 inline-flex rounded-lg bg-grid-green/10 p-3 text-grid-green">
+              <FiActivity className="text-2xl" />
+            </div>
+            <h3 className="mb-3 text-xl font-bold text-white">The Solution</h3>
+            <p className="text-slate-400 leading-relaxed">
+              Low-cost IoT sensors paired with real-time monitoring and our proprietary explainable AI detection engine instantly flags anomalies between adjacent poles.
+            </p>
+          </div>
+
+          <div className="glass rounded-2xl p-8 border border-white/5 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+              <FiCpu size={80} />
+            </div>
+            <div className="mb-4 inline-flex rounded-lg bg-grid-blue/10 p-3 text-grid-blue">
+              <FiCpu className="text-2xl" />
+            </div>
+            <h3 className="mb-3 text-xl font-bold text-white">How It Works</h3>
+            <ol className="list-decimal pl-4 text-slate-400 space-y-2">
+              <li>Sensors collect real-time readings</li>
+              <li>PoleNova monitors the digital twin</li>
+              <li>AI detects adjacent-pole anomalies</li>
+              <li>Operators receive explainable alerts</li>
+              <li>Technicians investigate and resolve</li>
+            </ol>
+          </div>
+        </div>
+
+        <div className="mt-20 glass rounded-3xl p-10 md:p-16 border border-white/5 text-center relative overflow-hidden">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-grid-blue/5 blur-[120px] rounded-full pointer-events-none"></div>
+          <h2 className="text-3xl font-bold text-white mb-6 relative z-10">Built for Dora Hack 2.0</h2>
+          <p className="text-slate-400 max-w-2xl mx-auto mb-8 relative z-10">
+            PoleNova AI is not just a CRUD app. It is a decision-support, monitoring, and fault-intelligence platform built on the MERN stack with Socket.io for real-time telemetry.
           </p>
-          <Link
-            to="/register"
-            className="mt-6 flex items-center gap-2 rounded-xl bg-grid-blue px-6 py-3 font-semibold text-grid-dark hover:brightness-110"
-          >
-            Get Started <FiArrowRight />
-          </Link>
+          <div className="flex flex-wrap justify-center gap-4 relative z-10">
+            <span className="bg-slate-800 text-slate-300 px-4 py-2 rounded-full text-sm font-semibold border border-slate-700">Real-time Visibility</span>
+            <span className="bg-slate-800 text-slate-300 px-4 py-2 rounded-full text-sm font-semibold border border-slate-700">Explainable AI</span>
+            <span className="bg-slate-800 text-slate-300 px-4 py-2 rounded-full text-sm font-semibold border border-slate-700">Faster Response</span>
+            <span className="bg-slate-800 text-slate-300 px-4 py-2 rounded-full text-sm font-semibold border border-slate-700">Historical Analytics</span>
+          </div>
         </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t border-white/5 px-6 py-8 text-center text-sm text-slate-600 md:px-16">
-        © {new Date().getFullYear()} PoleNova AI — Final Year Project. Built with the MERN stack.
-      </footer>
+      </main>
     </div>
   );
 };

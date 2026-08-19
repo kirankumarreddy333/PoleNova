@@ -13,13 +13,21 @@ const faultSchema = new mongoose.Schema(
       default: 'unknown'
     },
     confidence: { type: Number, min: 0, max: 100, default: 80 },
+    evidence: [{ type: String }],
     aiRecommendation: { type: String, default: '' },
     detectedAt: { type: Date, default: Date.now },
     resolvedAt: { type: Date },
     resolvedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    notes: { type: String, default: '' }
+    assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    notes: { type: String, default: '' },
+    downtimeMinutes: { type: Number, default: 0 }
   },
   { timestamps: true }
 );
+
+// Indexes for common queries
+faultSchema.index({ status: 1 });
+faultSchema.index({ severity: 1 });
+faultSchema.index({ createdAt: -1 });
 
 module.exports = mongoose.model('Fault', faultSchema);

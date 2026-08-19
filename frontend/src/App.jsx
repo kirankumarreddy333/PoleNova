@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard.jsx';
 import Poles from './pages/Poles.jsx';
 import PoleDetails from './pages/PoleDetails.jsx';
 import Faults from './pages/Faults.jsx';
+import Analytics from './pages/Analytics.jsx';
 import NotFound from './pages/NotFound.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 
@@ -45,6 +46,14 @@ function App() {
         element={
           <ProtectedRoute>
             <Faults />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/analytics"
+        element={
+          <ProtectedRoute>
+            <Analytics />
           </ProtectedRoute>
         }
       />

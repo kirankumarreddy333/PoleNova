@@ -1,16 +1,18 @@
-import { NavLink, useNavigate } from 'react-router-dom';
-import { FiGrid, FiActivity, FiAlertTriangle, FiLogOut, FiZap } from 'react-icons/fi';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FiHome, FiMapPin, FiAlertTriangle, FiLogOut, FiPieChart, FiZap } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext.jsx';
 
-const links = [
-  { to: '/dashboard', label: 'Overview', icon: FiGrid },
-  { to: '/poles', label: 'Poles', icon: FiActivity },
-  { to: '/faults', label: 'Faults', icon: FiAlertTriangle }
+const navItems = [
+  { name: 'Dashboard', path: '/dashboard', icon: FiHome },
+  { name: 'Network', path: '/poles', icon: FiMapPin },
+  { name: 'Faults', path: '/faults', icon: FiAlertTriangle },
+  { name: 'Analytics', path: '/analytics', icon: FiPieChart },
 ];
 
 const Sidebar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <aside className="glass fixed left-0 top-0 z-20 flex h-screen w-64 flex-col justify-between p-5">
@@ -23,21 +25,19 @@ const Sidebar = () => {
         </div>
 
         <nav className="flex flex-col gap-1">
-          {links.map(({ to, label, icon: Icon }) => (
-            <NavLink
-              key={to}
-              to={to}
-              className={({ isActive }) =>
-                `flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all ${
-                  isActive
-                    ? 'bg-grid-blue/10 text-grid-blue shadow-glow'
-                    : 'text-slate-400 hover:bg-white/5 hover:text-slate-100'
-                }`
-              }
+          {navItems.map(({ path, name, icon: Icon }) => (
+            <Link
+              key={path}
+              to={path}
+              className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all ${
+                location.pathname === path
+                  ? 'bg-grid-blue/10 text-grid-blue shadow-glow'
+                  : 'text-slate-400 hover:bg-white/5 hover:text-slate-100'
+              }`}
             >
               <Icon className="text-lg" />
-              {label}
-            </NavLink>
+              {name}
+            </Link>
           ))}
         </nav>
       </div>

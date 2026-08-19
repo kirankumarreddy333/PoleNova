@@ -12,6 +12,7 @@ const poleRoutes = require('./routes/poleRoutes');
 const sensorRoutes = require('./routes/sensorRoutes');
 const faultRoutes = require('./routes/faultRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
+const simulationRoutes = require('./routes/simulationRoutes');
 
 connectDB();
 
@@ -38,6 +39,7 @@ app.use('/api/poles', poleRoutes);
 app.use('/api/sensors', sensorRoutes);
 app.use('/api/faults', faultRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/simulation', simulationRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ success: false, message: 'Route not found' });

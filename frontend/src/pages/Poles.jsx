@@ -4,6 +4,7 @@ import { FiPlus, FiSearch, FiEdit2, FiTrash2, FiChevronLeft, FiChevronRight } fr
 import Sidebar from '../components/Sidebar.jsx';
 import Navbar from '../components/Navbar.jsx';
 import PoleFormModal from '../components/PoleFormModal.jsx';
+import DemoController from '../components/DemoController.jsx';
 import api from '../services/api.js';
 
 const statusStyles = {
@@ -70,6 +71,7 @@ const Poles = () => {
     <div className="min-h-screen bg-grid-dark">
       <Sidebar />
       <main className="ml-64 p-8">
+        <DemoController />
         <div className="mb-6 flex items-center justify-between">
           <Navbar title="Pole Management" subtitle="Add, edit, and monitor every pole in your network" />
           <button

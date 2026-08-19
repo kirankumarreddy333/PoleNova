@@ -19,6 +19,8 @@ import {
 import Sidebar from '../components/Sidebar.jsx';
 import Navbar from '../components/Navbar.jsx';
 import StatCard from '../components/StatCard.jsx';
+import DemoController from '../components/DemoController.jsx';
+import NetworkVisualization from '../components/NetworkVisualization.jsx';
 import api from '../services/api.js';
 import { getSocket } from '../services/socket.js';
 
@@ -55,9 +57,11 @@ const Dashboard = () => {
     socket.emit('join:dashboard');
     socket.on('sensor:update', loadData);
     socket.on('fault:new', loadData);
+    socket.on('network:reset', loadData);
     return () => {
       socket.off('sensor:update', loadData);
       socket.off('fault:new', loadData);
+      socket.off('network:reset', loadData);
     };
   }, []);
 
@@ -65,7 +69,14 @@ const Dashboard = () => {
     <div className="min-h-screen bg-grid-dark">
       <Sidebar />
       <main className="ml-64 p-8">
-        <Navbar title="Network Overview" subtitle="Live status of your distribution network" />
+        <div className="flex justify-between items-center mb-8">
+          <Navbar title="Network Overview" subtitle="Live status of your distribution network" />
+          <div className="flex items-center gap-2 px-3 py-1 bg-slate-900/50 border border-white/10 rounded-full">
+            <div className="w-2 h-2 rounded-full bg-grid-green animate-pulse"></div>
+            <span className="text-xs font-bold tracking-widest text-grid-green">LIVE</span>
+          </div>
+        </div>
+        <DemoController />
 
         {loading ? (
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
@@ -171,6 +182,8 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
+            
+            <NetworkVisualization />
           </>
         )}
       </main>

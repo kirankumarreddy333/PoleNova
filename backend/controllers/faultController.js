@@ -45,6 +45,7 @@ const runDetection = async (req, res, next) => {
         priority: c.priority,
         rootCause: c.rootCause,
         confidence: c.confidence,
+        evidence: c.evidence,
         aiRecommendation: c.aiRecommendation
       });
 
@@ -104,6 +105,11 @@ const updateFault = async (req, res, next) => {
     if (updates.status === 'resolved') {
       updates.resolvedAt = new Date();
       updates.resolvedBy = req.user._id;
+      
+      const existingFault = await Fault.findById(req.params.id);
+      if (existingFault && existingFault.createdAt) {
+        updates.downtimeMinutes = Math.round((new Date().getTime() - new Date(existingFault.createdAt).getTime()) / 60000);
+      }
     }
 
     const fault = await Fault.findByIdAndUpdate(req.params.id, updates, {
